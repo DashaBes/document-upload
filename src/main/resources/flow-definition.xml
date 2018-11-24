@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow-config
+http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="bookSearchFlowRegistry" />
+	</bean>
+
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="bookSearchFlowExecutor" />
+	</bean>
+
+	<webflow:flow-executor id="bookSearchFlowExecutor" flow-registry="bookSearchFlowRegistry" />
+
+	<webflow:flow-registry id="bookSearchFlowRegistry">
+		<webflow:flow-location id="bookSearchFlow" path="/flows/book-search-flow.xml" />
+	</webflow:flow-registry>
+
+</beans>
+		

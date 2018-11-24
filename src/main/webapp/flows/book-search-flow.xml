@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+	<var name="user" class="com.docupload.users.User" />
+	<var name="document" class="com.docupload.document.Resource" />
+	<var name="resourceCollection" class="com.docupload.document.ResourceCollection"/>
+	
+	<view-state id="displayLoginView" view="jsp/login.jsp" model="user">
+		<transition on="performLogin" to="performLoginAction" />
+	</view-state>
+
+	<action-state id="performLoginAction">
+		<evaluate expression="loginService.validateUser(user)" />
+		<transition on="true" to="home"/>
+		<transition on="false" to="displayError" />
+	</action-state>
+	
+	<action-state id="home">
+		<evaluate expression="user.getUserClass()"/>
+		<transition on="admin" to="adminHomeScreen"/>
+		<transition on="generalUser" to="homeScreen"/>
+	</action-state>
+	
+	<view-state id="adminHomeScreen" view="jsp/adminHomeScreen.jsp" model="user">
+		<transition on="LogOut" to="displayLoginView"/>
+		<transition on="upload" to="selectDocumentType"/>
+		<transition on="checkUploads" to="getUploads"/>
+		<transition on="viewSubmissions" to="getSubmissions"/>
+	</view-state>
+	
+	<action-state id="getSubmissions">
+		<evaluate expression="resourceCollection.getSubmissions()"/>
+		<transition on="true" to="viewSubmissions"/>
+		<transition on="false" to="displayError"/>
+	</action-state>
+	
+	<view-state id="viewSubmissions" view="jsp/viewSubmissions.jsp" model="resourceCollection">
+		<transition on="approve" to="confirmApproval"/>
+	</view-state>
+	
+	<action-state id="confirmApproval">
+		<evaluate expression="resourceCollection.approveSelected()"/>
+		<transition on="true" to="home"/>
+	</action-state>
+	
+	<view-state id="homeScreen" view="jsp/homeScreen.jsp" model="user">
+		<transition on="LogOut" to="displayLoginView"/>
+		<transition on="upload" to="selectDocumentType"/>
+		<transition on="checkUploads" to="getUploads"/>
+	</view-state>
+	
+	<view-state id="selectDocumentType" view="jsp/selectResourceType.jsp" model="document">
+		<transition on="Proceed" to="determineResourceType" />
+	</view-state>
+	
+	<action-state id="determineResourceType">
+		<evaluate expression="document.getResourceType()" />
+		<transition on="Contact" to="createContact" />
+		<transition on="Link" to="addLink" />
+		<transition on="Document Upload" to="uploadDocument" />
+		<transition on="" to="displayError" />
+	</action-state>
+	
+	<view-state id="createContact" view="jsp/createContact.jsp" model="document">
+		<transition on="submitContact" to="submitResource"/>
+	</view-state>
+	
+	<view-state id="addLink" view="jsp/addLink.jsp" model="document">
+		<transition on="submitLink" to="submitResource"/>
+	</view-state>
+	
+	<view-state id="uploadDocument" view="jsp/uploadDocument.jsp">
+	</view-state>
+	
+	<action-state id="submitResource">
+		<evaluate expression="resourceSubmission.submitResource(document, user)" />
+		<transition on="true" to="home" />
+		<transition on="false" to="displayError" />
+	</action-state>
+	
+	<!--
+	<action-state id="uploadFile">
+		<evaluate result="flowScope.uploadResult" expression="uploadService.uploadFile(flowRequestContext)" />
+	    <transition on="yes" to="summary" />
+	    <transition on="no" to="attachments" />
+	</action-state>
+	-->
+	
+	<action-state id="getUploads">
+		<evaluate expression="user.getUploads()"/>
+		<transition on="true" to="viewUploads"/>
+		<transition on="false" to="displayError"/>
+	</action-state>
+	
+	<view-state id="viewUploads" view="jsp/viewUploads.jsp" model="user">
+		<transition on="home" to="home"/>
+	</view-state>
+
+	<view-state id="displayError" view="jsp/failure.jsp" />
+	
+</flow>

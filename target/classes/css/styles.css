@@ -1,0 +1,169 @@
+#container {
+ 	padding-top: 100px;
+ 	padding-bottom: 40px;
+ 	font-size: 20px;
+	width: 584px;
+ 	margin: 0 auto;
+}
+
+#title {
+	font-family: "Segoe UI",Arial,sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: #4CAF50;
+}
+
+.input-box {
+	text-align: center;
+	font-family: Verdana,sans-serif;
+	letter-spacing: 2px;
+	font-size: 15px;
+	padding-bottom: 5px;
+}
+
+.input-box label {
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+
+.input-box input {
+  width: 150px;
+  height: 20px;
+  border: 1px solid #D9D9D9;
+  border-radius: 2px;
+  box-shadow: 0.5px 0.75px #d6d6c2;
+  padding: 0 10px;
+}
+
+.regular-button {
+	background-color: #D8D8D8;
+  	border: 1px solid #D8D8D8;
+  	border-radius: 2px;
+  	color: #757575;
+ 	font-weight: bold;
+  	min-width: 54px;
+  	padding: 7px 16px;
+ 	margin: 0 2px;
+ 	height: 30px;
+}
+
+
+.logout-button {
+	background-color: #D8D8D8;
+  	border: 1px solid #D8D8D8;
+  	border-radius: 2px;
+  	color: #757575;
+ 	font-weight: bold;
+  	min-width: 54px;
+  	padding: 7px 16px;
+ 	margin: 0 2px;
+ 	height: 30px;
+}
+
+
+.option-button {
+	text-align: center;
+ 	font-weight: bold;
+ 	font-size: 14px;
+ 	white-space: normal;
+ 	
+	background-color: #D8D8D8;
+  	border: 1px solid #D8D8D8;
+  	border-radius: 2px;
+  	color: #757575;
+  	min-width: 54px;
+  	padding: 50px 20px;
+ 	margin: 0 8px;
+}
+
+
+#button-container {
+	padding-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Style the header */
+.header {
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
+	font-family: "Segoe UI",Arial,sans-serif;
+	letter-spacing: 1px;
+	padding: 10px 16px;
+ 	/*background: #555; */
+ 	background-color: #f2f2f2;
+	color: #555;
+	
+}
+.greeting {
+	float: left;
+}
+.logOut {
+	float: right;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  	position: fixed;
+  	top: 0;
+  	width: 100%
+}
+
+/* Page content */
+.button-content {
+  	padding: 16px;
+  	display: flex;
+}
+
+.content {
+  	padding: 16px;
+  	font-family: "Segoe UI",Arial,sans-serif;
+  	letter-spacing: 1px;
+}
+
+.content h3 {
+	font-weight: normal;
+}
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 50%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.info {
+  padding: 0 18px;
+  max-height: 0;
+  width: 50%;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
